@@ -1,25 +1,48 @@
 {
-  "compilerOptions": {
-    // No module system, concatenated file
-    "module": "none",
-
-    // Set React as the JSX factory
-    "jsx": "react",
-
-    // Resolve modules using Node-resolution algorithm
-    "moduleResolution": "node",
-
-    // Target ES6 for more modern browsers
-    "target": "es6",
-
-    // Include typings from built-in lib declarations
-    "lib": ["es2015", "dom", "dom.iterable"],
-
-    // Include module source maps for debugging
-    "sourceMap": true,
-
-    // Output to single concatenated file
-    "outFile": "dist/bundle.js"
-  },
-  "include": ["src"]
+	"compilerOptions": {
+		// Target latest version of ECMAScript.
+		"target": "esnext",
+		// path to output directory
+		"outDir": "./dist/",
+		// enable strict null checks as a best practice
+		"strictNullChecks": true,
+		// Search under node_modules for non-relative imports.
+		"moduleResolution": "node",
+		// Process & infer types from .js files.
+		"allowJs": true,
+		// Don't emit; allow Babel to transform files.
+		"noEmit": true,
+		// Enable strictest settings like strictNullChecks & noImplicitAny.
+		"strict": true,
+		// Import non-ES modules as default imports.
+		"esModuleInterop": true,
+		// use typescript to transpile jsx to js
+		"jsx": "react",
+    "baseUrl": "./src",
+    "paths": {
+      "*": [
+        "*",
+        "generated/*"
+      ]
+    },
+		"lib": [
+			"es2015",
+			"dom.iterable",
+			"es2016.array.include",
+			"es2017.object",
+			"dom"
+		],
+		"module": "es6",
+		"removeComments": true,
+		"alwaysStrict": true,
+		"allowUnreachableCode": false,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
+		"importHelpers": true
+	},
 }

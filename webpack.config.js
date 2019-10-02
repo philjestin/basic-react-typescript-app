@@ -37,18 +37,14 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: isDevelopment
-      ? '[name].bundle.js'
-      : '[name].bundle-[hash:6].js',
+    filename: isDevelopment ? '[name].bundle.js' : '[name].bundle-[hash:6].js',
     chunkFilename: isDevelopment
       ? '[name].bundle.js'
       : '[name].bundle-[hash:6].js',
-    },
+  },
 
   // Enable sourcemaps for debugging webpack's output.
-  devtool: isDevelopment
-    ? 'source-map'
-    : '',
+  devtool: isDevelopment ? 'inline-source-map' : '',
 
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
@@ -61,28 +57,20 @@ module.exports = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    alias: {
-      components: path.resolve(__dirname, 'src/components'),
-      utils: path.resolve(__dirname, 'src/utils'),
-      constants: path.resolve(__dirname, 'src/constants'),
-      containers: path.resolve(__dirname, 'src/containers'),
-      routing: path.resolve(__dirname, 'src/routing'),
-    },
   },
 
   module: {
     rules: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
-        test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        test: /\.(ts|js)x?$/,
+        loader: 'babel-loader',
       },
-
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader'
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
       {
         test: /\.(scss|css)$/,
@@ -108,7 +96,7 @@ module.exports = {
         test: /\.(eot|otf|ttf|woff|woff2)$/,
         loader: 'file-loader',
         query: {
-          name: "file-loader?name=[name].[ext]",
+          name: 'file-loader?name=[name].[ext]',
         },
       },
       {
@@ -133,17 +121,8 @@ module.exports = {
     ],
   },
 
-  // When importing a module whose path matches one of the following, just
-  // assume a corresponding global variable exists and use that instead.
-  // This is important because it allows us to avoid bundling all of our
-  // dependencies, which allows browsers to cache those libraries between builds.
-  // externals: {
-  //   react: 'React',
-  //   'react-dom': 'ReactDOM',
-  // },
-
   plugins: pluginList,
-  
+
   optimization: {
     splitChunks: {
       cacheGroups: {
